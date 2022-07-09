@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "dev": "npx dev",
-    "build": "npx build",
+    "dev": "npx nuxi dev",
+    "build": "npx nuxi build",
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
