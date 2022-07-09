@@ -3731,13 +3731,6 @@ number-is-nan@^1.0.0:
   resolved "https://registry.npmjs.org/number-is-nan/-/number-is-nan-1.0.1.tgz"
   integrity sha512-4jbtZXNAsfZbAHiiqjLPBiCl16dES1zI4Hpzzxw61Tk+loF+sBDBKx1ICKKKwIqQ7M0mFn1TmkN7euSncWgHiQ==
 
-nuxi@^3.0.0-rc.4:
-  version "3.0.0-rc.4"
-  resolved "https://registry.yarnpkg.com/nuxi/-/nuxi-3.0.0-rc.4.tgz#f154548b2253a0e85113d88f28c0ba5da6c6b9d7"
-  integrity sha512-uOGmB7ZTtzdNLxgkSJxco6lTpmw/dTvBfarhzvptfbpLYjlKzpGkhe1s6mc4pyPKUWpnOh1IqpOkOI9xgEvlkQ==
-  optionalDependencies:
-    fsevents "~2.3.2"
-
 nuxt-cli@^0.3.8:
   version "0.3.8"
   resolved "https://registry.npmjs.org/nuxt-cli/-/nuxt-cli-0.3.8.tgz"
