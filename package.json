@@ -7,5 +7,9 @@
   },
   "devDependencies": {
     "nuxt3": "latest"
+  },
+  "dependencies": {
+    "@nuxtjs/supabase": "^0.1.18",
+    "date-and-time": "^2.4.0"
   }
 }
