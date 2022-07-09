@@ -3,5 +3,5 @@ import { defineNuxtConfig } from "nuxt";
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
   bridge: false,
-  modules: ["@nuxtjs/supabase"],
+  modules: ["@nuxtjs/supabase", "@nuxtjs/tailwindcss"],
 });
