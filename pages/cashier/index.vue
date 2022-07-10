@@ -247,7 +247,7 @@ onUnmounted(() => {
               Pasta
             </button>
             <div class="relative" v-for="(item, i) in menu" :key="i">
-              <div v-if="item.type == 'pasta'">
+              <div v-if="item?.type == 'pasta'">
                 <button
                   @click="addItem(item?.type, i)"
                   type="button"
@@ -260,7 +260,7 @@ onUnmounted(() => {
                 </button>
                 <button
                   v-if="item.quantity > 0"
-                  @click="removeItem(item.type, i)"
+                  @click="removeItem(item?.type, i)"
                   class="pl-2 py-2 absolute top-1/2 -translate-y-1/2 right-2 text-blue-600"
                 >
                   <svg
@@ -292,7 +292,7 @@ onUnmounted(() => {
               Pitsa
             </button>
             <div class="relative" v-for="(item, i) in menu" :key="i">
-              <div v-if="item.type == 'pizza'">
+              <div v-if="item?.type == 'pizza'">
                 <button
                   @click="addItem(item?.type, i)"
                   type="button"
@@ -305,7 +305,7 @@ onUnmounted(() => {
                 </button>
                 <button
                   v-if="item.quantity > 0"
-                  @click="removeItem(item.type, i)"
+                  @click="removeItem(item?.type, i)"
                   class="pl-2 py-2 absolute top-1/2 -translate-y-1/2 right-2 text-blue-600"
                 >
                   <svg
@@ -343,7 +343,7 @@ onUnmounted(() => {
                 "
               >
                 <button
-                  @click="addItem(item.type, i)"
+                  @click="addItem(item?.type, i)"
                   type="button"
                   class="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b text-grey-900 border-grey-200 rounded-t-lg hover:bg-grey-100 hover:text-blue-700 focus:text-blue-700"
                 >
@@ -354,7 +354,7 @@ onUnmounted(() => {
                 </button>
                 <button
                   v-if="item.quantity > 0"
-                  @click="removeItem(item.type, i)"
+                  @click="removeItem(item?.type, i)"
                   class="pl-2 py-2 absolute top-1/2 -translate-y-1/2 right-2 text-blue-600"
                 >
                   <svg

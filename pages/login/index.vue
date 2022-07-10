@@ -39,7 +39,7 @@ const onSubmit = async (
     }
     if (isSignIn) {
       // $alert({ type: "success", text: "Logging you in shortly...." });
-      return router.push("/cashier");
+      return router.push("/");
     } else {
       return; // $alert({type: "success", text: "Please check your inbox to activate your account!",});
     }
