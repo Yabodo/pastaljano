@@ -19,6 +19,16 @@
           placeholder="Your email"
         />
       </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          v-model="form.password"
+          placeholder="Your password"
+        />
+      </div>
       <button
         @click="submit"
         type="button"
@@ -49,6 +59,7 @@ import { ref, reactive, watch } from 'vue'
 const err = reactive({tryAgain: false})
 const form = reactive<UserCredentials>({
     email: '',
+    password: ''
 })
 const { $alert } = useNuxtApp()
 const { resetOnSubmit } = withDefaults(defineProps<{
@@ -71,10 +82,11 @@ const submit = function() {
         err.tryAgain = true
         return
     }
-    const { email} = form
-    emit('submit', { email } , true)
+    const { email, password } = form
+    emit('submit', { email, password } , true)
     if(resetOnSubmit) {
         form.email = ''
+        form.password = ''
     }
 }
 </script>

@@ -7,13 +7,11 @@ const client = useSupabaseClient();
 const router = useRouter();
 const loading = ref<boolean>(false);
 
-// Check and redirect if user signed in
-if (user.value) {
-  router.push("/cashier");
-}
-
-definePageMeta({
-  middleware: "auth",
+watchEffect(() => {
+  // Check and redirect if user signed in
+  if (user.value) {
+    router.push("/cashier");
+  }
 });
 
 // Login method using providers
