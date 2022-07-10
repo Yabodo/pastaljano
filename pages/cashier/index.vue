@@ -12,7 +12,7 @@ import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import type { RealtimeSubscription } from '@supabase/supabase-js'
 
-const orderUrlOrigin = "https://pastaljano.surge.sh/order/"
+const orderUrlOrigin = "https://nuxtjs-gilt-mu.vercel.app/order/"
 
 const route = useRoute()
 const user = useSupabaseUser();
