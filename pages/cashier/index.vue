@@ -1,7 +1,4 @@
 <script setup lang="ts">
-const orderUrlOrigin = "https://pastaljano.surge.sh/order/"
-
-
 import {
   range as _range,
   random as _random,
@@ -10,11 +7,38 @@ import {
   findIndex as _findIndex,
   concat as _concat,
 } from "lodash";
-
 import QRCode from 'qrcode'
-const route = useRoute()
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+import type { RealtimeSubscription } from '@supabase/supabase-js'
 
-async function getQRCode(message: String) {
+const orderUrlOrigin = "https://pastaljano.surge.sh/order/"
+
+const route = useRoute()
+const user = useSupabaseUser();
+const client = useSupabaseClient();
+const router = useRouter();
+
+let subscription: RealtimeSubscription
+const qrId = ref('')
+const clientName = ref("");
+const buttonsLoading = ref(false);
+const order = reactive({
+  pasta: [],
+  pizza: [],
+  lemonade: [],
+  beer: [],
+  wine: [],
+  all: [],
+});
+
+type ProfileAttrs = {
+  username?: string;
+  website?: string;
+  avatar_url?: string;
+};
+
+async function getQRCode(message: string) {
   const finalURL = orderUrlOrigin.concat(message)
   const response = await QRCode.toDataURL(finalURL)
   .catch(err => {
@@ -24,26 +48,13 @@ async function getQRCode(message: String) {
   return response
 }
 
-const qrId = ref('')
 
 
-import TimeAgo from 'javascript-time-ago'
-import en from 'javascript-time-ago/locale/en'
 TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
-console.log(timeAgo.format(new Date()))
-
-import type { RealtimeSubscription } from '@supabase/supabase-js'
-let subscription: RealtimeSubscription
 
 // Auth
-// profile attrs
-type ProfileAttrs = {
-  username?: string;
-  website?: string;
-  avatar_url?: string;
-};
 const allowedIds = ["7100edbc-1590-4244-b595-c2dac0f7f2cb"];
 const allowedEmails = [
   "kjoeveer@gmail.com",
@@ -55,8 +66,6 @@ const allowedEmails = [
   "avainaru@gmail.com",
   "aureliakene@gmail.com",
 ];
-const user = useSupabaseUser();
-const client = useSupabaseClient();
 if (user.value) {
   if (!allowedEmails.includes(user.value.email)) {
     console.info(
@@ -68,7 +77,7 @@ if (user.value) {
 
 async function signOut() {
   const { error } = await client.auth.signOut();
-  navigateTo("/");
+  router.push("/");
 }
 
 // Meta
@@ -89,16 +98,13 @@ const { data: ordersListData, refresh: refreshOrder } = await useAsyncData("orde
 
   return data;
 });
-
 const orderList = reactive(ordersListData);
-console.log(orderList);
 
 const { data: menuData } = await useAsyncData("menu", async () => {
   const { data } = await client
     .from("menu")
     .select("id, type, name, shortname, description, price, vegan, alcohol")
     .order("shortname", { ascending: true, nullsFirst: false });
-
   return data;
 });
 menuData._rawValue.forEach(function(element) {
@@ -146,7 +152,7 @@ async function submitOrder() {
       else getQRCode(response.id);
 
       removeAllItems();
-      //navigateTo(`/order/${response.id}`);
+      //router.push("/order/${response.id}");
       buttonsLoading.value = false;
     }
   }
@@ -162,18 +168,6 @@ async function orderDelivered(id: String) {
 }
 
 const menu = reactive(menuData);
-
-const clientName = ref("");
-const buttonsLoading = ref(false);
-
-const order = reactive({
-  pasta: [],
-  pizza: [],
-  lemonade: [],
-  beer: [],
-  wine: [],
-  all: [],
-});
 
 // Methods
 function addItem(type: String, itemId: number) {
