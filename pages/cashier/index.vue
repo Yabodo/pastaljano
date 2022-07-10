@@ -411,12 +411,14 @@ onUnmounted(() => {
                   class="bg-white border-b hover:bg-grey-50"
                 >
                   <th
+                    v-if="item?.name"
                     scope="row"
                     class="px-6 py-2 font-medium text-grey-900 whitespace-nowrap"
                   >
                     {{ item.name }}
                   </th>
                   <td
+                    v-if="item?.id"
                     @click="orderDelivered(item.id)"
                     class="px-3 py-2 text-right cursor-pointer"
                   >
@@ -437,7 +439,11 @@ onUnmounted(() => {
                       </svg>
                     </div>
                   </td>
-                  <td @click="getQRCode(item.id)" class="px-3 py-2 text-right">
+                  <td
+                    v-if="item?.id"
+                    @click="getQRCode(item.id)"
+                    class="px-3 py-2 text-right"
+                  >
                     <div class="font-medium text-blue-600 hover:underline">
                       <svg
                         class="w-5 h-5"
