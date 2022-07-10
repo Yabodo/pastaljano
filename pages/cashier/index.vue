@@ -73,10 +73,6 @@ watchEffect(() => {
   }
 })
 
-if (!allowedEmails.includes(user.value.email)) {
-  router.push("/");
-}
-
 async function signOut() {
   const { error } = await client.auth.signOut();
   router.push("/");
