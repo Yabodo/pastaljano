@@ -35,16 +35,13 @@ const onSubmit = async (
       : await client.auth.signUp(creds);
     loading.value = false;
     if (error) {
-      return $alert({ type: "error", text: error.message });
+      return; // $alert({ type: "error", text: error.message });
     }
     if (isSignIn) {
-      $alert({ type: "success", text: "Logging you in shortly...." });
+      // $alert({ type: "success", text: "Logging you in shortly...." });
       return router.push("/cashier");
     } else {
-      return $alert({
-        type: "success",
-        text: "Please check your inbox to activate your account!",
-      });
+      return; // $alert({type: "success", text: "Please check your inbox to activate your account!",});
     }
   } catch (err) {}
 };
