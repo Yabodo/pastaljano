@@ -12,13 +12,17 @@ if (user.value) {
   router.push("/cashier");
 }
 
+definePageMeta({
+  middleware: "auth",
+});
+
 // Login method using providers
 const login = async (
   provider: "github" | "google" | "gitlab" | "bitbucket"
 ) => {
   const { error } = await client.auth.signIn({ provider });
   if (error) {
-    return alert("Something went wrong !");
+    return; // $alert({ type: "error", text: "Something went wrong !" });
   } else {
     router.push("/cashier");
   }

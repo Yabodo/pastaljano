@@ -67,10 +67,8 @@ const allowedEmails = [
   "aureliakene@gmail.com",
 ];
 
-watchEffect(() => {
-  if (!user.value) {
-    router.push("/");
-  }
+definePageMeta({
+  middleware: 'auth'
 })
 
 async function signOut() {
