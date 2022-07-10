@@ -414,9 +414,7 @@ onUnmounted(() => {
                     scope="row"
                     class="px-6 py-2 font-medium text-grey-900 whitespace-nowrap"
                   >
-                    {{ item.name }} ({{
-                      timeAgo.format(Date.parse(item.created_at), "twitter")
-                    }})
+                    {{ item.name }}
                   </th>
                   <td
                     @click="orderDelivered(item.id)"
