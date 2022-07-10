@@ -112,7 +112,6 @@ menuData.value.forEach(function(element) {
 async function createOrderItems(orderId: String) {
   let payload = [];
   order.all.forEach((item) => {
-    console.log(item);
     payload.push({
       order_id: orderId,
       menu_id: item,
@@ -143,7 +142,6 @@ async function submitOrder() {
     const response = await createOrder();
     if (response.error) return response.error;
     else {
-      console.log(response.id);
       const items = await createOrderItems(response.id);
       clientName.value = "";
       if(onlyDrinks) orderDelivered(response.id)

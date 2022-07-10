@@ -179,7 +179,7 @@ const totalPrice = computed(() => {
         <b>Sinu tellimus:</b>
       </p>
       <div v-for="item in menu" :key="item">
-        <p v-if="item.quantity > 0">
+        <p v-if="item?.quantity > 0">
           <b>{{ item.quantity }}x</b>
           {{ item.name }}<br />
         </p>

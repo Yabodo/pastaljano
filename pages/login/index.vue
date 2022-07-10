@@ -9,7 +9,6 @@ const loading = ref<boolean>(false);
 
 // Check and redirect if user signed in
 if (user.value) {
-  console.log(user);
   router.push("/cashier");
 }
 
