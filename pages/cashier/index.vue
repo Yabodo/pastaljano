@@ -230,7 +230,12 @@ onUnmounted(() => {
       class="container px-5 py-6 mx-auto flex-col justify-center items-center w-fit"
     >
       <div v-if="qrId != ''">
-        <img class="mx-auto mb-4" @click="qrId = ''" :src="qrId" alt="" />
+        <img
+          class="mx-auto mb-4 cursor-pointer"
+          @click="qrId = ''"
+          :src="qrId"
+          alt=""
+        />
       </div>
       <div class="flex">
         <div class="w-fit">
@@ -415,7 +420,9 @@ onUnmounted(() => {
                     scope="row"
                     class="px-6 py-2 font-medium text-grey-900 whitespace-nowrap"
                   >
-                    {{ item.name }}
+                    {{ item.name }}({{
+                      timeAgo.format(Date.parse(item.created_at), "twitter")
+                    }})
                   </th>
                   <td
                     v-if="item?.id"
@@ -442,7 +449,7 @@ onUnmounted(() => {
                   <td
                     v-if="item?.id"
                     @click="getQRCode(item.id)"
-                    class="px-3 py-2 text-right"
+                    class="px-3 py-2 text-right cursor-pointer"
                   >
                     <div class="font-medium text-blue-600 hover:underline">
                       <svg
