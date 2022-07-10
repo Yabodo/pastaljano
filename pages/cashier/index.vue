@@ -42,15 +42,15 @@ async function getQRCode(message: string) {
   const finalURL = orderUrlOrigin.concat(message)
   const response = await QRCode.toDataURL(finalURL)
   .catch(err => {
-    console.error(err)
+    return null
   })
   qrId.value = response;
   return response
 }
 
 
-
-TimeAgo.addDefaultLocale(en)
+TimeAgo.setDefaultLocale(en.locale)
+TimeAgo.addLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
 
@@ -66,14 +66,16 @@ const allowedEmails = [
   "avainaru@gmail.com",
   "aureliakene@gmail.com",
 ];
-if (user.value) {
-  if (!allowedEmails.includes(user.value.email)) {
-    console.info(
-      "Nice try! We log your actions, but no harm done ;) If you should have access or want to work together, feel free to contact me in LinkedIn - Kaspar Jõeveer"
-    );
-    await signOut();
+
+watchEffect(() => {
+  if (!user.value) {
+    router.push("/");
   }
-} else signOut();
+})
+
+if (!allowedEmails.includes(user.value.email)) {
+  router.push("/");
+}
 
 async function signOut() {
   const { error } = await client.auth.signOut();
@@ -107,7 +109,7 @@ const { data: menuData } = await useAsyncData("menu", async () => {
     .order("shortname", { ascending: true, nullsFirst: false });
   return data;
 });
-menuData._rawValue.forEach(function(element) {
+menuData.value.forEach(function(element) {
   element.quantity = 0;
 });
 
@@ -406,7 +408,7 @@ onUnmounted(() => {
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-if="orderList">
                 <tr
                   v-for="(item, i) in orderList"
                   :key="i"
