@@ -131,7 +131,9 @@ const { data: eventData } = await useAsyncData("events", async () => {
             </table>
           </div>
         </div>
-        <div
+        <form
+          action="https://formspree.io/f/xdobjzbd"
+          method="POST"
           class="mb-8 lg:flex-grow md:w-1/2 lg:pr-24 flex flex-col lg:items-start lg:text-left lg:mb-0 items-center text-center"
         >
           <h1 class="xl:text-4xl text-2xl font-bold mb-7 text-left">
@@ -141,7 +143,7 @@ const { data: eventData } = await useAsyncData("events", async () => {
           <div class="flex w-full mb-4">
             <div class="mr-4 w-full">
               <label
-                for="website-admin"
+                for="form-name"
                 class="block mb-2 text-sm font-medium text-grey-900"
                 >Nimi</label
               >
@@ -153,7 +155,8 @@ const { data: eventData } = await useAsyncData("events", async () => {
                 </span>
                 <input
                   type="text"
-                  id="website-admin"
+                  name="name"
+                  id="form-name"
                   class="rounded-none rounded-r-lg bg-grey-50 border border-grey-300 text-grey-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5"
                   placeholder="Satoshi Nakamoto"
                 />
@@ -161,7 +164,7 @@ const { data: eventData } = await useAsyncData("events", async () => {
             </div>
             <div class="w-full">
               <label
-                for="website-admin"
+                for="form-email"
                 class="block mb-2 text-sm font-medium text-grey-900"
                 >E-posti aadress</label
               >
@@ -174,7 +177,8 @@ const { data: eventData } = await useAsyncData("events", async () => {
                 <input
                   type="email"
                   required
-                  id="website-admin"
+                  id="form-email"
+                  name="email"
                   class="rounded-none rounded-r-lg bg-grey-50 border border-grey-300 text-grey-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5"
                   placeholder="kontakt@pastaljano.ee"
                 />
@@ -183,12 +187,13 @@ const { data: eventData } = await useAsyncData("events", async () => {
           </div>
           <div class="mb-4 w-full">
             <label
-              for="message"
+              for="form-message"
               class="block mb-2 text-sm font-medium text-grey-900"
               >Sõnum</label
             >
             <textarea
-              id="message"
+              id="form-message"
+              name="message"
               rows="4"
               class="rounded-lg bg-grey-50 border border-grey-300 text-grey-900 focus:ring-blue-500 focus:border-blue-500 focus:border block flex-1 min-w-0 w-full text-sm p-2.5"
               placeholder="Lisa oma sõnum..."
@@ -203,7 +208,7 @@ const { data: eventData } = await useAsyncData("events", async () => {
               Saada kiri
             </span>
           </button>
-        </div>
+        </form>
       </div>
     </section>
   </div>

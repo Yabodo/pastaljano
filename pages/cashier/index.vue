@@ -53,20 +53,6 @@ TimeAgo.setDefaultLocale(en.locale)
 TimeAgo.addLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
-
-// Auth
-const allowedIds = ["7100edbc-1590-4244-b595-c2dac0f7f2cb"];
-const allowedEmails = [
-  "kjoeveer@gmail.com",
-  "yabodo@vivaldi.net",
-  "pastaljano@gmail.com",
-  "alexaus2002@gmail.com",
-  "Freddy.Jakobson@gmail.com",
-  "goodmenmedia@gmail.com",
-  "avainaru@gmail.com",
-  "aureliakene@gmail.com",
-];
-
 definePageMeta({
   middleware: 'auth'
 })
