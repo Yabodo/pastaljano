@@ -79,8 +79,9 @@ if(orderData.value == null) {
 const { data: orderItemsData } = await useAsyncData("order_items", async () => {
   const { data } = await client
     .from("order_items")
-    .select("id, menu_id")
+    .select("id, menu ( name, description, price, vegan, alcohol ), order ( source, created_at, done_by )")
     .eq("order_id", route.params.id);
+    console.log(data)
   return data;
 });
 const { data: profileData } = await useAsyncData("profiles", async () => {
