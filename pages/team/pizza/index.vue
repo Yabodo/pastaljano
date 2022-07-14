@@ -10,6 +10,10 @@ const timeAgo = new TimeAgo("en-US");
 const client = useSupabaseClient();
 let subscription: RealtimeSubscription
 
+definePageMeta({
+  middleware: 'auth'
+})
+
 const { data: dishes, refresh: refreshOrder } = await useAsyncData("order_items", async () => {
   const { data } = await client
     .from("order_items")
