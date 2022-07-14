@@ -4,14 +4,15 @@ export default defineNuxtRouteMiddleware(() => {
     "yabodo@vivaldi.net",
     "pastaljano@gmail.com",
     "alexaus2002@gmail.com",
-    "Freddy.Jakobson@gmail.com",
+    "alex.aus.est@gmail.com",
+    "freddy.jakobson@gmail.com",
     "goodmenmedia@gmail.com",
     "avainaru@gmail.com",
     "aureliakene@gmail.com",
     "kaspar940@gmail.com",
     "rudolftoikka@gmail.com",
     "triinulota@gmail.com",
-    "Loora0lepp@gmail.com",
+    "loora0lepp@gmail.com",
     "rasmus.korve@gmail.com",
   ];
   const protectedPaths = [
