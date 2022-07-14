@@ -8,13 +8,13 @@ TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo("en-US");
 
 const client = useSupabaseClient();
-let subscription: RealtimeSubscription
+let pastaSubscription: RealtimeSubscription
 
 definePageMeta({
   middleware: 'auth'
 })
 
-const { data: orderItems, refresh: refreshOrder } = await useAsyncData("order_items", async () => {
+const { data: orderItems, refresh: refreshPastaOrder } = await useAsyncData("order_items", async () => {
   const { data } = await client
     .from("order_items")
     .select("id, menu_id, created_at, menu!inner( id, name )")
@@ -32,18 +32,18 @@ async function dishDelivered(id) {
     .update({ prepared_by: new Date().toISOString() })
     .eq("id", id);
   if (error) return error;
-  refreshOrder()
+  refreshPastaOrder()
   return { id: data[0].id, error };
 }
 
 // Mounted
 onMounted(() => {
-  subscription = client.from('order_items').on('*', () => {
-    refreshOrder()
+  pastaSubscription = client.from('order_items').on('*', () => {
+    refreshPastaOrder()
   }).subscribe()
 })
 onUnmounted(() => {
-  client.removeSubscription(subscription)
+  client.removeSubscription(pastaSubscription)
 })
 </script>
 
@@ -67,7 +67,7 @@ onUnmounted(() => {
               <thead class="text-white">
                 <tr>
                   <th
-                    @click="refreshOrder()"
+                    @click="refreshPastaOrder()"
                     scope="col"
                     class="px-6 text-base font-medium p-2 cursor-pointer"
                   >

@@ -8,13 +8,13 @@ TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo("en-US");
 
 const client = useSupabaseClient();
-let subscription: RealtimeSubscription
+let pizzaSubscription: RealtimeSubscription
 
 definePageMeta({
   middleware: 'auth'
 })
 
-const { data: dishes, refresh: refreshOrder } = await useAsyncData("order_items", async () => {
+const { data: dishes, refresh: refreshPizzaOrder } = await useAsyncData("order_items", async () => {
   const { data } = await client
     .from("order_items")
     .select("id, menu_id, created_at, orders ( name ), menu!inner( id, name )")
@@ -25,12 +25,12 @@ const { data: dishes, refresh: refreshOrder } = await useAsyncData("order_items"
   return data;
 });
 onMounted(() => {
-  subscription = client.from('order_items').on('*', () => {
-    refreshOrder()
+  pizzaSubscription = client.from('order_items').on('*', () => {
+    refreshPizzaOrder()
   }).subscribe()
 })
 onUnmounted(() => {
-  client.removeSubscription(subscription)
+  client.removeSubscription(pizzaSubscription)
 })
 
 async function dishDelivered(id) {
@@ -39,7 +39,7 @@ async function dishDelivered(id) {
     .update({ prepared_by: new Date().toISOString() })
     .eq("id", id);
   if (error) return error;
-  refreshOrder()
+  refreshPizzaOrder()
   return { id: data[0].id, error };
 }
 </script>
@@ -61,7 +61,10 @@ async function dishDelivered(id) {
             <table
               class="w-full text-sm text-left text-grey-500 bg-blue-700 border border-grey-200 rounded-xl"
             >
-              <thead @click="refreshOrder()" class="text-white cursor-pointer">
+              <thead
+                @click="refreshPizzaOrder()"
+                class="text-white cursor-pointer"
+              >
                 <tr>
                   <th scope="col" class="px-6 text-base font-medium p-2">
                     Tellimused
