@@ -73,7 +73,7 @@ useHead({
 const { data: ordersListData, refresh: refreshOrder } = await useAsyncData("orders", async () => {
   const { data } = await client
     .from("orders")
-    .select("id, name, created_at, prepared_by, source, order_items ( menu ( shortname ) )")
+    .select("id, name, created_at, prepared_by, source, order_items ( prepared_by, menu ( shortname, type ) )")
     .order("prepared_by", { ascending: true, nullsFirst: true })
     .order("created_at", { ascending: true })
     .is('prepared_by', null)
@@ -404,7 +404,34 @@ onUnmounted(() => {
                     scope="row"
                     class="px-6 py-2 font-medium text-grey-900 whitespace-nowrap"
                   >
-                    <p>
+                    <div v-if="i < 5">
+                      <p>
+                        <u
+                          ><i
+                            >{{ item.name }}({{
+                              timeAgo.format(
+                                Date.parse(item.created_at),
+                                "twitter"
+                              )
+                            }})</i
+                          ></u
+                        >
+                      </p>
+                      <div v-for="(dish, i) in item.order_items">
+                        <p
+                          v-if="
+                            dish.prepared_by ||
+                              ['beer', 'wine', 'lemonade'].includes(
+                                dish.menu.type
+                              )
+                          "
+                        >
+                          ✅ {{ dish.menu.shortname }}
+                        </p>
+                        <p v-else>⏱️ {{ dish.menu.shortname }}</p>
+                      </div>
+                    </div>
+                    <p v-else>
                       {{ item.name }}({{
                         timeAgo.format(Date.parse(item.created_at), "twitter")
                       }})
@@ -458,7 +485,7 @@ onUnmounted(() => {
               </tbody>
               <tbody v-else-if="orderList?.length != 0 && orderDetailsList">
                 <tr
-                  v-for="(item, i) in orderList.slice(0, 5)"
+                  v-for="(item, i) in orderList"
                   :key="i"
                   class="bg-white border-b hover:bg-grey-50"
                 >
@@ -467,20 +494,37 @@ onUnmounted(() => {
                     scope="row"
                     class="px-6 py-2 font-medium text-grey-900 whitespace-nowrap"
                   >
-                    <p>
-                      <u
-                        ><i
-                          >{{ item.name }}({{
-                            timeAgo.format(
-                              Date.parse(item.created_at),
-                              "twitter"
-                            )
-                          }})</i
-                        ></u
-                      >
-                    </p>
-                    <p v-for="(dish, i) in item.order_items">
-                      {{ dish.menu.shortname }}
+                    <div v-if="i < 5">
+                      <p>
+                        <u
+                          ><i
+                            >{{ item.name }}({{
+                              timeAgo.format(
+                                Date.parse(item.created_at),
+                                "twitter"
+                              )
+                            }})</i
+                          ></u
+                        >
+                      </p>
+                      <div v-for="(dish, i) in item.order_items">
+                        <p
+                          v-if="
+                            dish.prepared_by ||
+                              ['beer', 'wine', 'lemonade'].includes(
+                                dish.menu.type
+                              )
+                          "
+                        >
+                          ✅ {{ dish.menu.shortname }}
+                        </p>
+                        <p v-else>⏱️ {{ dish.menu.shortname }}</p>
+                      </div>
+                    </div>
+                    <p v-else>
+                      {{ item.name }}({{
+                        timeAgo.format(Date.parse(item.created_at), "twitter")
+                      }})
                     </p>
                   </th>
                   <td
