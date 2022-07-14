@@ -12,7 +12,7 @@ import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import type { RealtimeSubscription } from '@supabase/supabase-js'
 
-const orderUrlOrigin = "https://pastaljano.ee/"
+const orderUrlOrigin = "https://pastaljano.ee/order/"
 
 const route = useRoute()
 const client = useSupabaseClient();

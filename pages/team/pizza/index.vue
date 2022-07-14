@@ -74,30 +74,30 @@ async function dishDelivered(id) {
               </thead>
               <tbody v-if="pizzas?.length != 0">
                 <tr
-                  v-for="(dish, i) in pizzas"
+                  v-for="(pizza, i) in pizzas"
                   :key="i"
                   class="bg-white border-b hover:bg-grey-50"
                 >
                   <th
-                    v-if="dish?.id"
+                    v-if="pizza?.id"
                     scope="row"
                     class="px-6 py-4 font-medium text-grey-900 whitespace-nowrap"
                   >
                     <p>
-                      {{ dish.menu.name }}({{
-                        timeAgo.format(Date.parse(dish.created_at), "twitter")
+                      {{ pizza.menu.name }}({{
+                        timeAgo.format(Date.parse(pizza.created_at), "twitter")
                       }})
                     </p>
                   </th>
                   <td
-                    v-if="dish?.id && dish?.orders?.name"
+                    v-if="pizza?.id && pizza?.orders?.name"
                     class="px-3 py-2 text-right cursor-pointer"
                   >
                     <div
-                      @click="dishDelivered(dish.id)"
+                      @click="dishDelivered(pizza.id)"
                       class="font-medium text-blue-600 hover:underline"
                     >
-                      <p>{{ dish.orders.name }}</p>
+                      <p>{{ pizza.orders.name }}</p>
                     </div>
                   </td>
                 </tr>
