@@ -14,7 +14,7 @@ definePageMeta({
   middleware: 'auth'
 })
 
-const { data: dishes, refresh: refreshPizzaOrder } = await useAsyncData("order_items", async () => {
+const { data: orderItems, refresh: refreshPizzaOrder } = await useAsyncData("order_items", async () => {
   const { data } = await client
     .from("order_items")
     .select("id, menu_id, created_at, orders ( name ), menu!inner( id, name )")
@@ -24,6 +24,7 @@ const { data: dishes, refresh: refreshPizzaOrder } = await useAsyncData("order_i
     .limit(10);
   return data;
 });
+const pizzas = reactive(orderItems);
 onMounted(() => {
   pizzaSubscription = client.from('order_items').on('*', () => {
     refreshPizzaOrder()
@@ -71,9 +72,9 @@ async function dishDelivered(id) {
                   </th>
                 </tr>
               </thead>
-              <tbody v-if="dishes?.length != 0">
+              <tbody v-if="pizzas?.length != 0">
                 <tr
-                  v-for="(dish, i) in dishes"
+                  v-for="(dish, i) in pizzas"
                   :key="i"
                   class="bg-white border-b hover:bg-grey-50"
                 >
@@ -89,7 +90,7 @@ async function dishDelivered(id) {
                     </p>
                   </th>
                   <td
-                    v-if="dish?.id"
+                    v-if="dish?.id && dish?.orders?.name"
                     class="px-3 py-2 text-right cursor-pointer"
                   >
                     <div
@@ -101,7 +102,7 @@ async function dishDelivered(id) {
                   </td>
                 </tr>
               </tbody>
-              <tbody v-if="dishes?.length == 0">
+              <tbody v-if="pizzas?.length == 0">
                 <tr class="bg-white border-b hover:bg-grey-50">
                   <th
                     scope="row"

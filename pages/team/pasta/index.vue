@@ -17,14 +17,14 @@ definePageMeta({
 const { data: orderItems, refresh: refreshPastaOrder } = await useAsyncData("order_items", async () => {
   const { data } = await client
     .from("order_items")
-    .select("id, menu_id, created_at, menu!inner( id, name )")
+    .select("id, menu_id, created_at, orders ( name ), menu!inner( id, name )")
     .order("created_at", { ascending: true })
     .is("prepared_by", null)
     .eq("menu.type", "pasta")
     .limit(10);
   return data;
 });
-const dishes = reactive(orderItems);
+const pastas = reactive(orderItems);
 
 async function dishDelivered(id) {
   const { data, error } = await client
@@ -75,9 +75,9 @@ onUnmounted(() => {
                   </th>
                 </tr>
               </thead>
-              <tbody v-if="dishes?.length != 0">
+              <tbody v-if="pastas?.length != 0">
                 <tr
-                  v-for="(dish, i) in dishes"
+                  v-for="(dish, i) in pastas"
                   :key="i"
                   class="bg-white border-b hover:bg-grey-50"
                 >
@@ -93,7 +93,7 @@ onUnmounted(() => {
                     </p>
                   </th>
                   <td
-                    v-if="dish?.id"
+                    v-if="dish?.id && dish?.orders?.name"
                     class="px-3 py-2 text-right cursor-pointer"
                   >
                     <div
@@ -118,7 +118,7 @@ onUnmounted(() => {
                   </td>
                 </tr>
               </tbody>
-              <tbody v-if="dishes?.length == 0">
+              <tbody v-if="pastas?.length == 0">
                 <tr class="bg-white border-b hover:bg-grey-50">
                   <th
                     scope="row"

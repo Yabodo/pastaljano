@@ -29,12 +29,14 @@ const { data: eventData } = await useAsyncData("events", async () => {
             alt="Pastaljano"
           />
         </a>
-        <NuxtLink
-          v-if="user"
-          to="/team"
+        <nav
           class="md:ml-auto flex flex-wrap items-center text-base justify-center"
-          >Tiim</NuxtLink
         >
+          <NuxtLink class="mr-5 hover:text-grey-900" v-if="user" to="/team"
+            >Tiim</NuxtLink
+          >
+        </nav>
+
         <a href="#contact">
           <button
             class="inline-flex items-center bg-[#ec5e24]/20 border-0 py-1 px-3 focus:outline-none hover:bg-[#ec5e24]/90 hover:text-white rounded text-base mt-4 md:mt-0"
