@@ -72,10 +72,10 @@ useHead({
 const { data: ordersListData, refresh: refreshOrder } = await useAsyncData("orders", async () => {
   const { data } = await client
     .from("orders")
-    .select("id, name, created_at, prepared_by, source, order_items ( prepared_by, menu ( shortname, type ) )")
-    .order("prepared_by", { ascending: true, nullsFirst: true })
+    .select("id, name, created_at, prepared_by, delivered_by, source, order_items ( prepared_by, menu ( shortname, type ) )")
+    .order("delivered_by", { ascending: true, nullsFirst: true })
     .order("created_at", { ascending: true })
-    .is('prepared_by', null)
+    .is('delivered_by', null)
   return data;
 });
 const orderList = reactive(ordersListData);
@@ -137,6 +137,15 @@ async function submitOrder() {
 }
 
 async function orderDelivered(id: String) {
+  const { data, error } = await client
+    .from("orders")
+    .update({ delivered_by: ((new Date()).toISOString()) })
+    .eq('id', id)
+  if (error) return error;
+  return { id: data[0].id, error };
+}
+
+async function orderPrepared(id: String) {
   const { data, error } = await client
     .from("orders")
     .update({ prepared_by: ((new Date()).toISOString()) })
@@ -406,7 +415,7 @@ onUnmounted(() => {
                   </th>
                 </tr>
               </thead>
-              <tbody v-if="orderList?.length != 0 && !orderDetailsList">
+              <tbody v-if="orderList?.length != 0">
                 <tr
                   v-for="(item, i) in orderList"
                   :key="i"
@@ -417,7 +426,7 @@ onUnmounted(() => {
                     scope="row"
                     class="px-6 py-2 font-medium text-grey-900 whitespace-nowrap"
                   >
-                    <div v-if="i < 5">
+                    <div>
                       <p>
                         <u
                           ><i
@@ -444,14 +453,9 @@ onUnmounted(() => {
                         <p v-else>⏱️ {{ dish.menu.shortname }}</p>
                       </div>
                     </div>
-                    <p v-else>
-                      {{ item.name }}({{
-                        timeAgo.format(Date.parse(item.created_at), "twitter")
-                      }})
-                    </p>
                   </th>
                   <td
-                    v-if="item?.id"
+                    v-if="item?.id && item.prepared_by"
                     @click="orderDelivered(item.id)"
                     class="px-3 py-2 text-right cursor-pointer"
                   >
@@ -468,6 +472,28 @@ onUnmounted(() => {
                           stroke-linejoin="round"
                           stroke-width="2"
                           d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                  </td>
+                  <td
+                    v-else-if="item?.id"
+                    @click="orderPrepared(item.id)"
+                    class="px-3 py-2 text-right cursor-pointer"
+                  >
+                    <div class="font-medium text-blue-600 hover:underline">
+                      <svg
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
                         ></path>
                       </svg>
                     </div>

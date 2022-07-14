@@ -63,7 +63,10 @@ onUnmounted(() => {
             <table
               class="w-full text-sm text-left text-grey-500 bg-blue-700 border border-grey-200 rounded-xl"
             >
-              <thead @click="refreshPastaOrder()" class="text-white">
+              <thead
+                @click="refreshPastaOrder()"
+                class="text-white cursor-pointer"
+              >
                 <tr>
                   <th
                     scope="col"
