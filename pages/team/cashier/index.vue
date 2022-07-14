@@ -15,7 +15,6 @@ import type { RealtimeSubscription } from '@supabase/supabase-js'
 const orderUrlOrigin = "https://pastaljano.ee/"
 
 const route = useRoute()
-const user = useSupabaseUser();
 const client = useSupabaseClient();
 const router = useRouter();
 
@@ -536,7 +535,7 @@ onUnmounted(() => {
                     scope="row"
                     class="px-6 py-2 font-medium text-grey-900 whitespace-nowrap"
                   >
-                    Mitte ühtegi
+                    Haibi rahvast! ❤️
                   </th>
                 </tr>
               </tbody>
