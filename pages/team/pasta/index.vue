@@ -14,7 +14,7 @@ definePageMeta({
   middleware: 'auth'
 })
 
-const { data: orderItems, refresh: refreshPastaOrder } = await useAsyncData("order_items", async () => {
+const { data: pastas, refresh: refreshPastaOrder } = await useAsyncData("order_items", async () => {
   const { data } = await client
     .from("order_items")
     .select("id, menu_id, created_at, orders ( name ), menu!inner( id, name )")
@@ -24,7 +24,6 @@ const { data: orderItems, refresh: refreshPastaOrder } = await useAsyncData("ord
     .limit(10);
   return data;
 });
-const pastas = reactive(orderItems);
 
 async function dishDelivered(id) {
   const { data, error } = await client

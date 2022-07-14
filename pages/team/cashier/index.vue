@@ -22,7 +22,6 @@ let subscription: RealtimeSubscription
 const qrId = ref('')
 const clientName = ref("");
 const buttonsLoading = ref(false);
-const orderDetailsList = ref(false);
 const order = reactive({
   pasta: [],
   pizza: [],
@@ -383,10 +382,7 @@ onUnmounted(() => {
             <table
               class="w-full text-sm text-left text-grey-500 bg-blue-700 border border-grey-200 rounded-xl"
             >
-              <thead
-                @click="orderDetailsList = !orderDetailsList"
-                class="text-white cursor-pointer"
-              >
+              <thead @click="refreshOrder()" class="text-white cursor-pointer">
                 <tr>
                   <th scope="col" class="px-6 text-base font-medium p-2">
                     Tellimused
@@ -394,96 +390,6 @@ onUnmounted(() => {
                 </tr>
               </thead>
               <tbody v-if="orderList?.length != 0 && !orderDetailsList">
-                <tr
-                  v-for="(item, i) in orderList"
-                  :key="i"
-                  class="bg-white border-b hover:bg-grey-50"
-                >
-                  <th
-                    v-if="item?.name"
-                    scope="row"
-                    class="px-6 py-2 font-medium text-grey-900 whitespace-nowrap"
-                  >
-                    <div v-if="i < 5">
-                      <p>
-                        <u
-                          ><i
-                            >{{ item.name }}({{
-                              timeAgo.format(
-                                Date.parse(item.created_at),
-                                "twitter"
-                              )
-                            }})</i
-                          ></u
-                        >
-                      </p>
-                      <div v-for="(dish, i) in item.order_items">
-                        <p
-                          v-if="
-                            dish.prepared_by ||
-                              ['beer', 'wine', 'lemonade'].includes(
-                                dish.menu.type
-                              )
-                          "
-                        >
-                          ✅ {{ dish.menu.shortname }}
-                        </p>
-                        <p v-else>⏱️ {{ dish.menu.shortname }}</p>
-                      </div>
-                    </div>
-                    <p v-else>
-                      {{ item.name }}({{
-                        timeAgo.format(Date.parse(item.created_at), "twitter")
-                      }})
-                    </p>
-                  </th>
-                  <td
-                    v-if="item?.id"
-                    @click="orderDelivered(item.id)"
-                    class="px-3 py-2 text-right cursor-pointer"
-                  >
-                    <div class="font-medium text-blue-600 hover:underline">
-                      <svg
-                        class="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                        ></path>
-                      </svg>
-                    </div>
-                  </td>
-                  <td
-                    v-if="item?.id"
-                    @click="getQRCode(item.id)"
-                    class="px-3 py-2 text-right cursor-pointer"
-                  >
-                    <div class="font-medium text-blue-600 hover:underline">
-                      <svg
-                        class="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"
-                        ></path>
-                      </svg>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody v-else-if="orderList?.length != 0 && orderDetailsList">
                 <tr
                   v-for="(item, i) in orderList"
                   :key="i"
