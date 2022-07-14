@@ -57,7 +57,7 @@ const { data: menuData } = await useAsyncData("menu", async () => {
 const { data: orderData, refresh: refreshOrder } = await useAsyncData("orders", async () => {
   const { data } = await client
     .from("orders")
-    .select("id, source, created_at, done_by")
+    .select("id, source, created_at, prepared_by")
     .eq("id", route.params.id)
     .single();
   return data;
@@ -80,7 +80,8 @@ const { data: orderItemsData } = await useAsyncData("order_items", async () => {
   const { data } = await client
     .from("order_items")
     .select("id, menu_id")
-    .eq("order_id", route.params.id);
+    .eq("order_id", route.params.id)
+    .order("menu_id", { ascending: true });
   return data;
 });
 const { data: profileData } = await useAsyncData("profiles", async () => {
@@ -163,16 +164,16 @@ const totalPrice = computed(() => {
   >
     <div v-if="orderData" class=" md:flex-1 md:mr-10">
       <div
-        v-if="orderData?.done_by"
+        v-if="orderData?.prepared_by"
         class="flex justify-center md:justify-start md:items-center"
       >
         <h1 class="xl:text-4xl text-2xl font-bold mb-7 text-left">
-          Toit on valmis! Tule ja naudi! :)
+          ✔️ Toit on valmis!
         </h1>
       </div>
       <div v-else class="flex justify-center md:justify-start md:items-center">
         <h1 class="xl:text-4xl text-2xl font-bold mb-7 text-left">
-          Toit on valmimas! :)
+          🔥 Toit on valmimas!
         </h1>
       </div>
       <p class="font-normal">
@@ -194,7 +195,7 @@ const totalPrice = computed(() => {
         />
       </div>
       <img
-        v-if="orderData?.done_by"
+        v-if="orderData?.prepared_by"
         class="m-auto w-32 mb-10 md:w-full md:m-2 max-w-xs xl:max-w-lg 2xl:max-w-xl"
         src="/pastaljano-pizza-pug.svg"
         alt="pastaljano-pizza-pug"
