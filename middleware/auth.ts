@@ -11,6 +11,8 @@ export default defineNuxtRouteMiddleware(() => {
     "kaspar940@gmail.com",
     "rudolftoikka@gmail.com",
     "triinulota@gmail.com",
+    "Loora0lepp@gmail.com",
+    "rasmus.korve@gmail.com",
   ];
   const protectedPaths = [
     "/team",

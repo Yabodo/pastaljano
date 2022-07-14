@@ -122,18 +122,18 @@ async function submitOrder() {
     !buttonsLoading.value
   ) {
     buttonsLoading.value = true;
-    const response = await createOrder();
-    if (response.error) return response.error;
-    else {
-      const items = await createOrderItems(response.id);
-      clientName.value = "";
-      if(onlyDrinks) orderDelivered(response.id)
-      else getQRCode(response.id);
+    const response = await createOrder()
+    .catch(err => {
+      return err
+    });
+    const items = await createOrderItems(response.id);
+    clientName.value = "";
+    if(onlyDrinks) orderDelivered(response.id)
+    else getQRCode(response.id);
 
-      removeAllItems();
-      //router.push("/order/${response.id}");
-      buttonsLoading.value = false;
-    }
+    removeAllItems();
+    //router.push("/order/${response.id}");
+    buttonsLoading.value = false;
   }
 }
 
