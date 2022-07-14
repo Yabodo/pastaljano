@@ -12,7 +12,7 @@ import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import type { RealtimeSubscription } from '@supabase/supabase-js'
 
-const orderUrlOrigin = "https://nuxtjs-gilt-mu.vercel.app/order/"
+const orderUrlOrigin = "https://pastaljano.ee/"
 
 const route = useRoute()
 const user = useSupabaseUser();
@@ -128,6 +128,7 @@ async function submitOrder() {
     else {
       const items = await createOrderItems(response.id);
       clientName.value = "";
+      console.log(items)
       if(onlyDrinks) orderDelivered(response.id)
       else getQRCode(response.id);
 
@@ -391,7 +392,7 @@ onUnmounted(() => {
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-if="orderList?.length != 0">
                 <tr
                   v-for="(item, i) in orderList"
                   :key="i"
@@ -450,6 +451,16 @@ onUnmounted(() => {
                       </svg>
                     </div>
                   </td>
+                </tr>
+              </tbody>
+              <tbody v-else>
+                <tr class="bg-white border-b hover:bg-grey-50">
+                  <th
+                    scope="row"
+                    class="px-6 py-2 font-medium text-grey-900 whitespace-nowrap"
+                  >
+                    Mitte ühtegi
+                  </th>
                 </tr>
               </tbody>
             </table>

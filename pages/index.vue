@@ -30,11 +30,7 @@ const { data: eventData } = await useAsyncData("events", async () => {
         </a>
         <nav
           class="md:ml-auto flex flex-wrap items-center text-base justify-center"
-        >
-          <a href="#contact" class="mr-5 hover:text-grey-900"
-            >Sündmuste kalender</a
-          >
-        </nav>
+        ></nav>
         <a href="#contact">
           <button
             class="inline-flex items-center bg-[#ec5e24]/20 border-0 py-1 px-3 focus:outline-none hover:bg-[#ec5e24]/90 hover:text-white rounded text-base mt-4 md:mt-0"

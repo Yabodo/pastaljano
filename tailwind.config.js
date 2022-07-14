@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: {},
   media: false, // or 'media' or 'class'
   theme: {
     colors: {
