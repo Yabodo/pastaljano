@@ -129,7 +129,7 @@ async function submitOrder() {
     clientName.value = "";
     if(onlyDrinks) orderDelivered(response.id)
     else getQRCode(response.id);
-
+    refreshOrder();
     removeAllItems();
     //router.push("/order/${response.id}");
     buttonsLoading.value = false;
