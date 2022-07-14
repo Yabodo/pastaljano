@@ -10,7 +10,7 @@ const loading = ref<boolean>(false);
 watchEffect(() => {
   // Check and redirect if user signed in
   if (user.value) {
-    router.push("/cashier");
+    router.push("/team");
   }
 });
 
@@ -22,7 +22,7 @@ const login = async (
   if (error) {
     return; // $alert({ type: "error", text: "Something went wrong !" });
   } else {
-    router.push("/cashier");
+    router.push("/team");
   }
 };
 const onSubmit = async (

@@ -8,6 +8,15 @@ export default defineNuxtRouteMiddleware(() => {
     "goodmenmedia@gmail.com",
     "avainaru@gmail.com",
     "aureliakene@gmail.com",
+    "kaspar940@gmail.com",
+    "rudolftoikka@gmail.com",
+    "triinulota@gmail.com",
+  ];
+  const protectedPaths = [
+    "/team",
+    "/team/cashier",
+    "/team/pizza",
+    "/team/pasta",
   ];
 
   const user = useSupabaseUser();
@@ -17,7 +26,10 @@ export default defineNuxtRouteMiddleware(() => {
   if (!user.value) {
     return router.push("/login");
   } else {
-    if (route.path == "/cashier" && !allowedEmails.includes(user.value.email)) {
+    if (
+      protectedPaths.includes(route.path) &&
+      !allowedEmails.includes(user.value.email)
+    ) {
       return router.push("/");
     }
   }
