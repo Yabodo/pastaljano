@@ -71,7 +71,7 @@ async function dishDelivered(id) {
                     class="px-6 flex items-center text-base font-medium p-2"
                   >
                     <svg
-                      class="w-4 h-4 mx-1"
+                      class="w-4 h-4 mr-1"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
