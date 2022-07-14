@@ -63,14 +63,27 @@ onUnmounted(() => {
             <table
               class="w-full text-sm text-left text-grey-500 bg-blue-700 border border-grey-200 rounded-xl"
             >
-              <thead class="text-white">
+              <thead @click="refreshPastaOrder()" class="text-white">
                 <tr>
                   <th
-                    @click="refreshPastaOrder()"
                     scope="col"
-                    class="px-6 text-base font-medium p-2 cursor-pointer"
+                    class="px-6 flex items-center text-base font-medium p-2"
                   >
-                    Tellimused
+                    <svg
+                      class="w-4 h-4 mx-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                      ></path>
+                    </svg>
+                    <p>Tellimused</p>
                   </th>
                 </tr>
               </thead>
