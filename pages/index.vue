@@ -71,9 +71,9 @@ const { data: eventData } = await useAsyncData("events", async () => {
           <p class="mb-8 leading-relaxed">
             Ehk oled meist juba varemgi kuulnud? 2021. aastal tutvustasime
             rahvale oma pastabussist autentset käsitööpastat ja võitsime
-            auhindu. Sel aastal kütavad rahvast käima lisaks ka värsked
-            käsitööpitsad! Tule üksi, sõprade või perega, sest meie toidud
-            meeldivad kõigile!
+            auhindu. Sel aastal kütsid rahvast käima lisaks ka värsked
+            käsitööpitsad! Tule järgmine suvi uuesti ja tule üksi, sõprade 
+            või perega, sest meie toidud meeldivad kõigile!
           </p>
         </div>
         <div class="lg:max-w-lg lg:w-full md:w-1/3 w-1/3">
