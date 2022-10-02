@@ -66,10 +66,10 @@ const { data: eventData } = await useAsyncData("events", async () => {
           <h1
             class="title-font sm:text-4xl text-3xl mb-4 font-medium text-grey-900"
           >
-            2022 on pitsa ja päikese aasta!
+            2022 oli pitsa ja päikese aasta!
           </h1>
           <p class="mb-8 leading-relaxed">
-            Ehk oled meist juba varemgi kuulnud? Eelmine aasta tutvustasime
+            Ehk oled meist juba varemgi kuulnud? 2021. aastal tutvustasime
             rahvale oma pastabussist autentset käsitööpastat ja võitsime
             auhindu. Sel aastal kütavad rahvast käima lisaks ka värsked
             käsitööpitsad! Tule üksi, sõprade või perega, sest meie toidud
@@ -93,7 +93,7 @@ const { data: eventData } = await useAsyncData("events", async () => {
           class="mb-8 lg:flex-grow md:w-1/2 lg:pr-24 flex flex-col lg:items-start lg:text-left lg:mb-0 items-center text-center"
         >
           <h1 class="xl:text-4xl text-2xl font-bold mb-7 text-left">
-            Tule meile külla!
+            Selle suve üritused olid
           </h1>
           <div
             v-if="eventData?.length > 0"
